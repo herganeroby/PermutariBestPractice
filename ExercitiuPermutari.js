@@ -1,24 +1,22 @@
-var solutii = [];
-var intrare = [1, 2, 3];
-var elemente = Array(intrare.length);
-var solutie = Array(intrare.length);
+function swap (litere, index1, index2) {
+  var temp = litere[index1];
+  litere[index1] = litere[index2];
+  litere[index2] = temp;
+  return litere;
+}
 
-function permutari(k) {
-  var i = 0;
-  if (k == intrare.length) {
-    return solutii.push(solutie.slice());
+function permutare (litere, startIndex, sfIndex) {
+  if (startIndex === sfIndex) {
+	console.log(litere.join(''));
   } else {
-    for (var i = 0; i < intrare.length; i++) {
-      while (!elemente[i]) {
-        elemente[i] = true;
-        solutie[k] = intrare[i];
-        permutari(k + 1);
-        elemente[i] = false;
-      }
-      i++;
-      
-      console.log(solutii[i]);
+    var i;
+    for (i = startIndex; i <= sfIndex; i++) {
+      swap(litere, startIndex, i);
+      permutare(litere, startIndex + 1, sfIndex);
+      swap(litere, i, startIndex); // backtrack
     }
-
   }
-} 
+}
+
+var litere = ['A','B','C'];
+permutare(litere, 0, litere.length-1); // ABC, ACB, BAC, BCA, CBA, CAB
